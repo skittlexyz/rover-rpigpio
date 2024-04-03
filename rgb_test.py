@@ -5,15 +5,15 @@ except RuntimeError:
     print("Error importing RPi.GPIO!  This is probably because you need superuser privileges. You can achieve this by using 'sudo' to run your script")
     exit(1)
 
-# GPIO.setmode(GPIO.BOARD) 
+GPIO.setmode(GPIO.BOARD) 
 
-GPIO.setup(14, GPIO.OUT)
-GPIO.setup(13, GPIO.OUT)
-GPIO.setup(12, GPIO.OUT)
+GPIO.setup(0, GPIO.OUT)
+GPIO.setup(2, GPIO.OUT)
+GPIO.setup(3, GPIO.OUT)
 
-r = GPIO.PWM(14, 10)
-g = GPIO.PWM(13, 10)
-b = GPIO.PWM(12, 10)
+r = GPIO.PWM(0, 10)
+g = GPIO.PWM(2, 10)
+b = GPIO.PWM(3, 10)
 
 r.start(0)
 g.start(0)
