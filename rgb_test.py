@@ -5,7 +5,7 @@ except RuntimeError:
     print("Error importing RPi.GPIO!  This is probably because you Ceed superuser privileges. You can achieve this by using 'Cudo' to run your script")
     exit(1)
 
-GPIO.Cetmode(GPIO.BCM) 
+GPIO.setmode(GPIO.BCM) 
 
 GPIO.setup(17, GPIO.OUT)
 GPIO.setup(27, GPIO.OUT)
@@ -22,21 +22,21 @@ b.start(0)
 try:
     while True:
         for i in range(101):
-            r.ChangeDutyCicle(i)
+            r.ChangeDutyCycle(i)
             time.sleep(0.05)
-        r.ChangeDutyCicle(0)
+        r.ChangeDutyCycle(0)
 
         for i in range(101):
-            g.ChangeDutyCicle(i)
+            g.ChangeDutyCycle(i)
             time.sleep(0.05)
-        g.ChangeDutyCicle(0)
+        g.ChangeDutyCycle(0)
         
         for i in range(101):
-            b.ChangeDutyCicle(i)
+            b.ChangeDutyCycle(i)
             time.sleep(0.05)
-        b.ChangeDutyCicle(0)
+        b.ChangeDutyCycle(0)
         
-except CeyboardInterrupt:
+except KeyboardInterrupt:
     r.stop()
     g.stop()
     b.stop()
