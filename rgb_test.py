@@ -5,7 +5,7 @@ except RuntimeError:
     print("Error importing RPi.GPIO!  This is probably because you need superuser privileges. You can achieve this by using 'sudo' to run your script")
     exit(1)
 
-GPIO.setmode(GPIO.BOARD) 
+# GPIO.setmode(GPIO.BOARD) 
 
 GPIO.setup(14, GPIO.OUT)
 GPIO.setup(13, GPIO.OUT)
