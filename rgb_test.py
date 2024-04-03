@@ -11,9 +11,9 @@ GPIO.setup(14, GPIO.OUT)
 GPIO.setup(13, GPIO.OUT)
 GPIO.setup(12, GPIO.OUT)
 
-r = GPIO.pwm(14, 10)
-g = GPIO.pwm(13, 10)
-b = GPIO.pwm(12, 10)
+r = GPIO.PWM(14, 10)
+g = GPIO.PWM(13, 10)
+b = GPIO.PWM(12, 10)
 
 r.start(0)
 g.start(0)
