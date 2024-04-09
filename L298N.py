@@ -6,7 +6,7 @@ MOTOR_A = 1
 MOTOR_B = 2
 
 class L298N:
-    def __init__(a_pins, b_pins, frequency = 1000, min_duty_cycle = 145, max_duty_cycle = 255):
+    def __init__(self, a_pins, b_pins, frequency = 1000, min_duty_cycle = 145, max_duty_cycle = 255):
         self._a_pins = a_pins
         self._b_pins = b_pins
         self._frequency = frequency
@@ -29,7 +29,7 @@ class L298N:
         GPIO.output(self._b_pins[0], False)
         GPIO.output(self._b_pins[1], False)
 
-    def change_speed(speed, motor = MOTOR_AB):
+    def change_speed(self, speed, motor = MOTOR_AB):
         if motor == MOTOR_A:
             self._a_speed = speed
             self._a_en.ChangeDutyCycle(map_value(self._a_speed, 0, 100, self._min_duty_cycle, self._max_duty_cycle))
@@ -42,7 +42,7 @@ class L298N:
             self._a_en.ChangeDutyCycle(map_value(self._a_speed, 0, 100, self._min_duty_cycle, self._max_duty_cycle))
             self._b_en.ChangeDutyCycle(map_value(self._b_speed, 0, 100, self._min_duty_cycle, self._max_duty_cycle))
 
-    def forward(motor = MOTOR_AB):
+    def forward(self, motor = MOTOR_AB):
         if motor == MOTOR_A:
             GPIO.output(self._a_pins[0], True)
             GPIO.output(self._a_pins[1], False)
@@ -55,7 +55,7 @@ class L298N:
             GPIO.output(self._b_pins[0], True)
             GPIO.output(self._b_pins[1], False)
             
-    def backward(motor = MOTOR_AB):
+    def backward(self, motor = MOTOR_AB):
         if motor == MOTOR_A:
             GPIO.output(self._a_pins[0], False)
             GPIO.output(self._a_pins[1], True)
@@ -68,15 +68,15 @@ class L298N:
             GPIO.output(self._b_pins[0], False)
             GPIO.output(self._b_pins[1], True)
 
-    def left():
+    def left(self):
         self.forward(MOTOR_A)
         self.backward(MOTOR_B)
 
-    def right():
+    def right(self):
         self.forward(MOTOR_B)
         self.backward(MOTOR_A)
 
-    def stop(motor = MOTOR_AB):
+    def stop(self, motor = MOTOR_AB):
         if motor == MOTOR_A:
             GPIO.output(self._a_pins[0], False)
             GPIO.output(self._a_pins[1], False)
@@ -89,7 +89,7 @@ class L298N:
             GPIO.output(self._b_pins[0], False)
             GPIO.output(self._b_pins[1], False)
 
-    def clean_pins():
+    def clean_pins(self):
         self._a_en.stop()
         self._b_en.stop()
 
