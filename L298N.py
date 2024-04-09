@@ -44,29 +44,33 @@ class L298N:
 
     def forward(self, motor = MOTOR_AB):
         if motor == MOTOR_A:
-            GPIO.output(self._a_pins[0], True)
-            GPIO.output(self._a_pins[1], False)
+            GPIO.output(self._a_pins[1], True)
+            GPIO.output(self._a_pins[2], False)
         if motor == MOTOR_B:
-            GPIO.output(self._b_pins[0], True)
-            GPIO.output(self._b_pins[1], False)
+            GPIO.output(self._b_pins[1], True)
+            GPIO.output(self._b_pins[2], False)
         if motor == MOTOR_AB:
-            GPIO.output(self._a_pins[0], True)
-            GPIO.output(self._a_pins[1], False)
-            GPIO.output(self._b_pins[0], True)
-            GPIO.output(self._b_pins[1], False)
-            
+            GPIO.output(self._a_pins[1], True)
+            GPIO.output(self._a_pins[2], False)
+            GPIO.output(self._b_pins[1], True)
+            GPIO.output(self._b_pins[2], False)
+
     def backward(self, motor = MOTOR_AB):
         if motor == MOTOR_A:
-            GPIO.output(self._a_pins[0], False)
-            GPIO.output(self._a_pins[1], True)
+            self._a_en.ChangeDutyCycle(self._speed)
+            GPIO.output(self._a_pins[1], False)
+            GPIO.output(self._a_pins[2], True)
         if motor == MOTOR_B:
-            GPIO.output(self._b_pins[0], False)
-            GPIO.output(self._b_pins[1], True)
+            self._b_en.ChangeDutyCycle(self._speed)
+            GPIO.output(self._b_pins[1], False)
+            GPIO.output(self._b_pins[2], True)
         if motor == MOTOR_AB:
-            GPIO.output(self._a_pins[0], False)
-            GPIO.output(self._a_pins[1], True)
-            GPIO.output(self._b_pins[0], False)
-            GPIO.output(self._b_pins[1], True)
+            self._a_en.ChangeDutyCycle(self._speed)
+            self._b_en.ChangeDutyCycle(self._speed)
+            GPIO.output(self._a_pins[1], False)
+            GPIO.output(self._a_pins[2], True)
+            GPIO.output(self._b_pins[1], False)
+            GPIO.output(self._b_pins[2], True)
 
     def left(self):
         self.forward(MOTOR_A)
@@ -78,16 +82,20 @@ class L298N:
 
     def stop(self, motor = MOTOR_AB):
         if motor == MOTOR_A:
-            GPIO.output(self._a_pins[0], False)
+            self._a_en.ChangeDutyCycle(0)
             GPIO.output(self._a_pins[1], False)
+            GPIO.output(self._a_pins[2], False)
         if motor == MOTOR_B:
-            GPIO.output(self._b_pins[0], False)
+            self._b_en.ChangeDutyCycle(0)
             GPIO.output(self._b_pins[1], False)
+            GPIO.output(self._b_pins[2], False)
         if motor == MOTOR_AB:
-            GPIO.output(self._a_pins[0], False)
+            self._a_en.ChangeDutyCycle(0)
+            self._b_en.ChangeDutyCycle(0)
             GPIO.output(self._a_pins[1], False)
-            GPIO.output(self._b_pins[0], False)
+            GPIO.output(self._a_pins[2], False)
             GPIO.output(self._b_pins[1], False)
+            GPIO.output(self._b_pins[2], False)
 
     def clean_pins(self):
         self._a_en.stop()
@@ -112,6 +120,7 @@ rover = L298N(
 )
 
 try:
+    rover.change_speed(50)
     while True:
         rover.forward(MOTOR_AB)
         time.sleep(1)
@@ -119,7 +128,7 @@ try:
         rover.backward(MOTOR_AB)
         time.sleep(1)
         rover.stop(MOTOR_AB)
-        
+
 except KeyboardInterrupt:
     rover.clean_pins()
     GPIO.cleanup()
