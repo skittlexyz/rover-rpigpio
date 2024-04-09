@@ -32,15 +32,15 @@ class L298N:
     def change_speed(self, speed, motor = MOTOR_AB):
         if motor == MOTOR_A:
             self._a_speed = speed
-            self._a_en.ChangeDutyCycle(map_value(self._a_speed, 0, 100, self._min_duty_cycle, self._max_duty_cycle))
+            self._a_en.ChangeDutyCycle(self._a_speed)
         if motor == MOTOR_B:
             self._b_speed = speed
-            self._b_en.ChangeDutyCycle(map_value(self._b_speed, 0, 100, self._min_duty_cycle, self._max_duty_cycle))
+            self._b_en.ChangeDutyCycle(self._b_speed)
         if motor == MOTOR_AB:
             self._a_speed = speed
             self._b_speed = speed
-            self._a_en.ChangeDutyCycle(map_value(self._a_speed, 0, 100, self._min_duty_cycle, self._max_duty_cycle))
-            self._b_en.ChangeDutyCycle(map_value(self._b_speed, 0, 100, self._min_duty_cycle, self._max_duty_cycle))
+            self._a_en.ChangeDutyCycle(self._a_speed)
+            self._b_en.ChangeDutyCycle(self._b_speed)
 
     def forward(self, motor = MOTOR_AB):
         if motor == MOTOR_A:
