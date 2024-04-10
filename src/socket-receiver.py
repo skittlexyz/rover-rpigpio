@@ -19,17 +19,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-from L298N import L298N
+from L298N import *
 
 roverCar = L298N(
     [17, 27, 22], [23, 24, 25]
 )
+roverCar.change_speed(75)
 
 @app.post("/")
 async def handle_post(data: dict):
     if data:
         command = data.get('command')
-        if command == 'd':
+        if command == 'f':
             roverCar.stop(MOTOR_AB)
         if command == 'w':
             roverCar.forward(MOTOR_AB)

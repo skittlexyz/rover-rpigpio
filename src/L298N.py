@@ -44,31 +44,31 @@ class L298N:
             self._a_en.ChangeDutyCycle(self._a_speed)
             self._b_en.ChangeDutyCycle(self._b_speed)
 
-    def forward(self, motor = MOTOR_AB):
-        if motor == MOTOR_A:
-            self._a_en.ChangeDutyCycle(self._a_speed)
-            GPIO.output(self._a_pins[0], True)
-            GPIO.output(self._a_pins[1], True)
-            GPIO.output(self._a_pins[2], False)
-        if motor == MOTOR_B:
-            self._b_en.ChangeDutyCycle(self._b_speed)
-            GPIO.output(self._b_pins[0], True)
-            GPIO.output(self._b_pins[1], True)
-            GPIO.output(self._b_pins[2], False)
-        if motor == MOTOR_AB:
-            self._a_en.ChangeDutyCycle(self._a_speed)
-            self._b_en.ChangeDutyCycle(self._b_speed)
-            GPIO.output(self._a_pins[0], True)
-            GPIO.output(self._a_pins[1], True)
-            GPIO.output(self._a_pins[2], False)
-            GPIO.output(self._b_pins[0], True)
-            GPIO.output(self._b_pins[1], True)
-            GPIO.output(self._b_pins[2], False)
-
     def backward(self, motor = MOTOR_AB):
         if motor == MOTOR_A:
             self._a_en.ChangeDutyCycle(self._a_speed)
             GPIO.output(self._a_pins[0], True)
+            GPIO.output(self._a_pins[1], True)
+            GPIO.output(self._a_pins[2], False)
+        if motor == MOTOR_B:
+            self._b_en.ChangeDutyCycle(self._b_speed)
+            GPIO.output(self._b_pins[0], True)
+            GPIO.output(self._b_pins[1], True)
+            GPIO.output(self._b_pins[2], False)
+        if motor == MOTOR_AB:
+            self._a_en.ChangeDutyCycle(self._a_speed)
+            self._b_en.ChangeDutyCycle(self._b_speed)
+            GPIO.output(self._a_pins[0], True)
+            GPIO.output(self._a_pins[1], True)
+            GPIO.output(self._a_pins[2], False)
+            GPIO.output(self._b_pins[0], True)
+            GPIO.output(self._b_pins[1], True)
+            GPIO.output(self._b_pins[2], False)
+
+    def forward(self, motor = MOTOR_AB):
+        if motor == MOTOR_A:
+            self._a_en.ChangeDutyCycle(self._a_speed)
+            GPIO.output(self._a_pins[0], True)
             GPIO.output(self._a_pins[1], False)
             GPIO.output(self._a_pins[2], True)
         if motor == MOTOR_B:
@@ -86,11 +86,11 @@ class L298N:
             GPIO.output(self._b_pins[1], False)
             GPIO.output(self._b_pins[2], True)
 
-    def left(self):
+    def right(self):
         self.forward(MOTOR_A)
         self.backward(MOTOR_B)
 
-    def right(self):
+    def left(self):
         self.forward(MOTOR_B)
         self.backward(MOTOR_A)
 
