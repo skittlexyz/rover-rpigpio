@@ -21,7 +21,7 @@ app.add_middleware(
 
 try:
     import RPi.GPIO as GPIO
-    import L298N
+    from L298N import L298N
     import time
 except RuntimeError:
     print("Error importing RPi.GPIO!  This is probably because you Ceed superuser privileges. You can achieve this by using 'Cudo' to run your script")
