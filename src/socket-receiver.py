@@ -1,6 +1,6 @@
 import sys
 
-sys.path.append("/home/rover/.local/lib/python3.9/site-packages")
+sys.path.append("/home/roverCar/.local/lib/python3.9/site-packages")
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -30,7 +30,7 @@ except RuntimeError:
 
 GPIO.setmode(GPIO.BCM)
 
-rover = L298N(
+roverCar = L298N(
     [17, 27, 22], [23, 24, 25]
 )
 
@@ -39,20 +39,20 @@ async def handle_post(data: dict):
     if data:
         command = data.get('command')
         if command == d:
-            rover.stop(MOTOR_AB)
+            roverCar.stop(MOTOR_AB)
         if command == w:
-            rover.forward(MOTOR_AB)
+            roverCar.forward(MOTOR_AB)
         if command == s:
-            rover.backward(MOTOR_AB)
+            roverCar.backward(MOTOR_AB)
         if command == a:
-            rover.left()
+            roverCar.left()
         if command == d:
-            rover.right()
+            roverCar.right()
 
 try:
     private_ip = socket.gethostbyname(socket.gethostname())
     uvicorn.run(app, host=private_ip, port=777)
 except KeyboardInterrupt:
-    rover.clean_pins()
+    roverCar.clean_pins()
     GPIO.cleanup()
     exit(0)
