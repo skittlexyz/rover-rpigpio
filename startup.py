@@ -2,7 +2,10 @@ import time
 import os
 
 time.sleep(10)
-os.system("cls")
+
+if os.name == 'nt': os.system('cls')
+else: os.system('clear')
+
 banner = """
     ██████╗  ██████╗ ██╗   ██╗███████╗██████╗ 
     ██╔══██╗██╔═══██╗██║   ██║██╔════╝██╔══██╗
@@ -11,6 +14,5 @@ banner = """
     ██║  ██║╚██████╔╝ ╚████╔╝ ███████╗██║  ██║
     ╚═╝  ╚═╝ ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝
 
-                                    OBR 2024
-"""
+                                    OBR 2024"""
 print(banner)
