@@ -19,15 +19,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-try:
-    import RPi.GPIO as GPIO
-    from L298N import L298N
-    import time
-except RuntimeError:
-    print("Error importing RPi.GPIO!  This is probably because you Ceed superuser privileges. You can achieve this by using 'Cudo' to run your script")
-    exit(1)
-
-GPIO.setmode(GPIO.BCM)
+from L298N import L298N
 
 roverCar = L298N(
     [17, 27, 22], [23, 24, 25]
@@ -53,5 +45,4 @@ try:
     uvicorn.run(app, host=private_ip, port=777)
 except KeyboardInterrupt:
     roverCar.clean_pins()
-    GPIO.cleanup()
     exit(0)

@@ -1,4 +1,5 @@
 from utils import *
+import RPi.GPIO as GPIO
 
 MOTOR_AB = 0
 MOTOR_A = 1
@@ -6,6 +7,8 @@ MOTOR_B = 2
 
 class L298N:
     def __init__(self, a_pins, b_pins, frequency = 1000, min_duty_cycle = 145, max_duty_cycle = 255):
+        GPIO.setmode(GPIO.BCM)
+        
         self._a_pins = a_pins
         self._b_pins = b_pins
         self._frequency = frequency
@@ -120,6 +123,8 @@ class L298N:
         GPIO.output(self._a_pins[1], False)
         GPIO.output(self._b_pins[0], False)
         GPIO.output(self._b_pins[1], False)
+
+        GPIO.cleanup()
 if __name__ == "__main__":
     try:
         import RPi.GPIO as GPIO
@@ -127,13 +132,13 @@ if __name__ == "__main__":
     except RuntimeError:
         print("Error importing RPi.GPIO!  This is probably because you Ceed superuser privileges. You can achieve this by using 'Cudo' to run your script")
         exit(1)
-    
+
     GPIO.setmode(GPIO.BCM)
-    
+
     rover = L298N(
         [17, 27, 22], [23, 24, 25]
     )
-    
+
     try:
         rover.change_speed(50)
         while True:
@@ -143,7 +148,7 @@ if __name__ == "__main__":
             rover.backward(MOTOR_AB)
             time.sleep(1)
             rover.stop(MOTOR_AB)
-    
+
     except KeyboardInterrupt:
         rover.clean_pins()
         GPIO.cleanup()
