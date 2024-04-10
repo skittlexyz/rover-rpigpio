@@ -1,6 +1,6 @@
 import sys
 
-sys.path.append("/home/roverCar/.local/lib/python3.9/site-packages")
+sys.path.append("/home/rover/.local/lib/python3.9/site-packages")
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -19,10 +19,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-import L298N
-
 try:
     import RPi.GPIO as GPIO
+    import L298N
     import time
 except RuntimeError:
     print("Error importing RPi.GPIO!  This is probably because you Ceed superuser privileges. You can achieve this by using 'Cudo' to run your script")
