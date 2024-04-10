@@ -1,11 +1,21 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 import socket
 
-import L298N
+app = FastAPI()
 
-app = Flask(__name__)
-CORS(app)
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["POST"],
+    allow_headers=["*"],
+)
+
+import L298N
 
 try:
     import RPi.GPIO as GPIO
@@ -20,10 +30,8 @@ rover = L298N(
     [17, 27, 22], [23, 24, 25]
 )
 
-@app.route('/', methods=['POST'])
-def handle_post():
-    rover.change_speed(50)
-    data = request.get_json()
+@app.post("/")
+async def handle_post(data: dict):
     if data:
         command = data.get('command')
         if command == d:
@@ -36,16 +44,10 @@ def handle_post():
             rover.left()
         if command == d:
             rover.right()
-        if command:
-            print("Received command:", command)
-            # Handle the command received from the client
-            # You can add your logic here to perform actions based on the received command
-            return jsonify({'message': 'Command received successfully'})
-    return jsonify({'error': 'Invalid request'})
 
 try:
     private_ip = socket.gethostbyname(socket.gethostname())
-    app.run(host=private_ip, port=5000, debug=True)
+    uvicorn.run(app, host=private_ip, port=777)
 except KeyboardInterrupt:
     rover.clean_pins()
     GPIO.cleanup()

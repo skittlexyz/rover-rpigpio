@@ -1,5 +1,4 @@
 from utils import *
-import numpy as np
 
 MOTOR_AB = 0
 MOTOR_A = 1
