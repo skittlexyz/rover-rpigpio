@@ -1,3 +1,7 @@
+import sys
+
+sys.path.append("/home/rover/.local/lib/python3.9/site-packages")
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn

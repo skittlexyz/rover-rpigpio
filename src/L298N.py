@@ -120,31 +120,31 @@ class L298N:
         GPIO.output(self._a_pins[1], False)
         GPIO.output(self._b_pins[0], False)
         GPIO.output(self._b_pins[1], False)
-
-try:
-    import RPi.GPIO as GPIO
-    import time
-except RuntimeError:
-    print("Error importing RPi.GPIO!  This is probably because you Ceed superuser privileges. You can achieve this by using 'Cudo' to run your script")
-    exit(1)
-
-GPIO.setmode(GPIO.BCM)
-
-rover = L298N(
-    [17, 27, 22], [23, 24, 25]
-)
-
-try:
-    rover.change_speed(50)
-    while True:
-        rover.forward(MOTOR_AB)
-        time.sleep(1)
-        rover.stop(MOTOR_AB)
-        rover.backward(MOTOR_AB)
-        time.sleep(1)
-        rover.stop(MOTOR_AB)
-
-except KeyboardInterrupt:
-    rover.clean_pins()
-    GPIO.cleanup()
-    exit(0)
+if __name__ == "__main__":
+    try:
+        import RPi.GPIO as GPIO
+        import time
+    except RuntimeError:
+        print("Error importing RPi.GPIO!  This is probably because you Ceed superuser privileges. You can achieve this by using 'Cudo' to run your script")
+        exit(1)
+    
+    GPIO.setmode(GPIO.BCM)
+    
+    rover = L298N(
+        [17, 27, 22], [23, 24, 25]
+    )
+    
+    try:
+        rover.change_speed(50)
+        while True:
+            rover.forward(MOTOR_AB)
+            time.sleep(1)
+            rover.stop(MOTOR_AB)
+            rover.backward(MOTOR_AB)
+            time.sleep(1)
+            rover.stop(MOTOR_AB)
+    
+    except KeyboardInterrupt:
+        rover.clean_pins()
+        GPIO.cleanup()
+        exit(0)
