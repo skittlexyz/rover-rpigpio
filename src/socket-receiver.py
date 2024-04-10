@@ -29,19 +29,19 @@ roverCar = L298N(
 async def handle_post(data: dict):
     if data:
         command = data.get('command')
-        if command == d:
+        if command == 'd':
             roverCar.stop(MOTOR_AB)
-        if command == w:
+        if command == 'w':
             roverCar.forward(MOTOR_AB)
-        if command == s:
+        if command == 's':
             roverCar.backward(MOTOR_AB)
-        if command == a:
+        if command == 'a':
             roverCar.left()
-        if command == d:
+        if command == 'd':
             roverCar.right()
 
 try:
-    private_ip = socket.gethostbyname(socket.gethostname())
+    private_ip = "192.168."
     uvicorn.run(app, host=private_ip, port=777)
 except KeyboardInterrupt:
     roverCar.clean_pins()
