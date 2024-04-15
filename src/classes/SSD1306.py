@@ -45,16 +45,8 @@ class SSD1306:
             self.draw.text((0+BORDER,(10 * index)+BORDER), line, font=font, fill=255)
         if auto: self.show_drawing()
 
-    def banner_animation(self):
-        self.write(BANNER, True)
-        time.sleep(1.5)
-        empty_space = BANNER
-        for i in range(6):
-            for j in range(21):
-                empty_space[i][j] + ' '
-                self.write(empty_space[i][j], True)
-                time.sleep(0.25)
-        self.clear(True)
+    def draw_banner(self, auto= False):
+        self.write(BANNER, auto)
 
     def clear(self, auto = False):
         if auto: self.start_drawing()
