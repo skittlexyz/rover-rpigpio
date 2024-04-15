@@ -48,11 +48,11 @@ class SSD1306:
     def banner_animation(self):
         self.write(BANNER, True)
         time.sleep(1.5)
-        empty_space = ['','','','','','']
+        empty_space = BANNER
         for i in range(6):
-            for _ in range(21):
-                empty_space[i] + ' '
-                self.write(empty_space, True)
+            for j in range(21):
+                empty_space[i][j] + ' '
+                self.write(empty_space[i][j], True)
                 time.sleep(0.25)
         self.clear(True)
 
