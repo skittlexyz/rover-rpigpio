@@ -42,7 +42,7 @@ async def handle_post(data: dict):
             roverCar.right()
 
 try:
-    private_ip = "192.168."
+    private_ip = "192.168.137.190"
     uvicorn.run(app, host=private_ip, port=777)
 except KeyboardInterrupt:
     roverCar.clean_pins()
