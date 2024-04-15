@@ -1,5 +1,5 @@
 from utils import *
-import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO # type: ignore
 
 MOTOR_AB = 0
 MOTOR_A = 1
@@ -125,9 +125,10 @@ class L298N:
         GPIO.output(self._b_pins[1], False)
 
         GPIO.cleanup()
+
 if __name__ == "__main__":
     try:
-        import RPi.GPIO as GPIO
+        import RPi.GPIO as GPIO # type: ignore
         import time
     except RuntimeError:
         print("Error importing RPi.GPIO!  This is probably because you Ceed superuser privileges. You can achieve this by using 'Cudo' to run your script")

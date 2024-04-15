@@ -1,11 +1,11 @@
 import sys
 
 sys.path.append("/home/rover/.local/lib/python3.9/site-packages")
+sys.path.append("../")
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-import socket
 
 app = FastAPI()
 
@@ -19,11 +19,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-from L298N import *
+from classes.L298N import *
 
 roverCar = L298N(
     [17, 27, 22], [23, 24, 25]
 )
+
 roverCar.change_speed(75)
 
 @app.post("/")
