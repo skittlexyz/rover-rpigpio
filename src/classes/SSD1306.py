@@ -5,7 +5,7 @@ import adafruit_ssd1306
 
 WIDTH = 128
 HEIGHT = 64
-BORDER = 5
+BORDER = 2
 
 import adafruit_ssd1306
 
@@ -25,7 +25,19 @@ class SSD1306:
         font = ImageFont.load_default()
         (font_width, font_height) = font.getsize(text)
         self.draw.text(position, text, font=font, fill=255)
+    
+    def write(self, lines):
+        max_length = 21
+        font = ImageFont.load_default()
+        for index, line in enumerate(lines):
+            if len(line) > max_length:
+                raise ValueError(f"Line {index} is exceding 21 characters limit.")
+            self.draw.text((0+2,(10 * index)+2), line, font=font, fill=255)
 
+    def clear(self):
+        self.oled.fill(0)
+        self.show_drawing()
+    
     def show_drawing(self):
         self.oled.image(self.image)
         self.oled.show()
